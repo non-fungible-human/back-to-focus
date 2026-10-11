@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Back to Focus</title>
+<meta name="description" content="A free iPhone Shortcut. Open X or Instagram while a Focus is on and get sent straight back to your Home Screen.">
+<meta property="og:title" content="Back to Focus">
+<meta property="og:description" content="Open X or Instagram during Focus. Get sent back. A free iPhone Shortcut.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://non-fungible-human.github.io/back-to-focus/">
+<meta property="og:image" content="https://non-fungible-human.github.io/back-to-focus/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Back to Focus: Open X or Instagram during Focus. Get sent back. Free iPhone Shortcut for iOS 27.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@zig_andreas">
+<meta name="theme-color" content="#030014">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%236D4AFF'/%3E%3Cpath d='M20 7a9 9 0 1 0 5 15.5A8 8 0 0 1 20 7z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #030014;
+    --ink: #FFFFFF;
+    --soft: #F4F0FF;
+    --muted: #A9A3C2;
+    --faint: #6F6890;
+    --line: rgba(196, 181, 253, .14);
+    --violet-hi: #9A84FF;
+    --glow: rgba(124, 92, 255, .55);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(60rem 36rem at 50% -12rem, rgba(109, 74, 255, .28), transparent 70%),
+      var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  a { color: var(--violet-hi); }
+  :focus-visible { outline: 2px solid var(--violet-hi); outline-offset: 3px; border-radius: 8px; }
+  p, h1, ol { margin: 0; }
+
+  .wrap { max-width: 60rem; margin: 0 auto; padding: 0 16px; }
+
+  .nav { display: flex; align-items: center; justify-content: center; padding: 16px 0 0; }
+  .brand { font: 600 15px/1 Manrope, system-ui, sans-serif; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .mark { width: 26px; height: 26px; }
+
+  /* One screen: phones stack text, then video + steps side by side. */
+  .hero {
+    display: grid; column-gap: 18px;
+    grid-template-columns: 132px 1fr;
+    grid-template-areas: "h1 h1" "lede lede" "cta cta" "phone steps" "off off";
+    padding-top: 28px;
+  }
+  .hero h1 { grid-area: h1; }
+  .lede { grid-area: lede; }
+  .cta { grid-area: cta; }
+  .stage { grid-area: phone; }
+  .steps { grid-area: steps; }
+  .off { grid-area: off; }
+
+  h1 {
+    font: 500 clamp(2rem, 8.6vw, 3.5rem)/1.08 Manrope, system-ui, sans-serif; letter-spacing: -.02em;
+    background: linear-gradient(180deg, #FFFFFF 30%, #C9BEFF);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-align: center; text-wrap: balance;
+  }
+  .lede { color: var(--muted); font-size: 16px; text-align: center; margin-top: 12px; }
+  .cta { text-align: center; margin-top: 20px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 48px; padding: 0 22px; border-radius: 12px;
+    font: 500 16px/1 system-ui, -apple-system, sans-serif; text-decoration: none; color: var(--soft);
+    background: linear-gradient(180deg, #7B5CFF, #5B39F0);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25), 0 0 0 1px rgba(154,132,255,.5), 0 8px 32px -6px var(--glow);
+    transition: box-shadow .2s;
+  }
+  .btn:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 0 0 1px rgba(154,132,255,.7), 0 10px 40px -4px var(--glow); }
+  .btn svg { width: 18px; height: 18px; }
+  .btn[aria-disabled="true"] { background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px var(--line); color: var(--faint); pointer-events: none; }
+  .fine { color: var(--faint); font-size: 13px; margin-top: 8px; }
+
+  /* Desktop visitors: hand off to the iPhone */
+  .qr { display: none; }
+
+  /* Demo phone */
+  .stage { position: relative; margin-top: 28px; align-self: start; }
+  .stage::after {
+    content: ""; position: absolute; left: 50%; top: 45%; width: 260%; height: 70%; transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, rgba(124,92,255,.45), transparent);
+    pointer-events: none; z-index: 0;
+  }
+  .phone {
+    position: relative; z-index: 1;
+    aspect-ratio: 720 / 1564; border-radius: 24px; overflow: hidden; background: #000;
+    border: 5px solid #0B0820;
+    box-shadow: 0 0 0 1px rgba(196,181,253,.25), 0 20px 50px -16px rgba(0,0,0,.8), 0 0 40px -8px var(--glow);
+  }
+  .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Setup */
+  .steps { list-style: none; counter-reset: s; padding: 0; margin-top: 28px; align-self: center; }
+  .steps li { counter-increment: s; display: flex; gap: 10px; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14.5px; line-height: 1.45; }
+  .steps li:last-child { border-bottom: 1px solid var(--line); }
+  .steps li::before { content: counter(s); flex: none; font: 600 13px/1 Manrope, system-ui, sans-serif; color: var(--violet-hi); width: 10px; }
+  .steps strong { color: var(--soft); font-weight: 600; }
+  .off { color: var(--faint); font-size: 13px; text-align: center; margin-top: 20px; }
+  .off strong { color: var(--muted); font-weight: 600; }
+
+
+  /* Install guide: video with steps that follow along */
+  .guide { padding: 72px 0 0; text-align: center; }
+  .guide h2 {
+    font: 500 clamp(1.75rem, 6vw, 2.25rem)/1.15 Manrope, system-ui, sans-serif; letter-spacing: -.02em; margin: 0;
+    background: linear-gradient(180deg, #FFFFFF 30%, #C9BEFF); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .guide > p { color: var(--muted); margin-top: 8px; }
+  .guide-body { display: grid; gap: 28px; justify-items: center; margin-top: 28px; }
+  .guide-video {
+    width: min(70vw, 270px); aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000;
+    box-shadow: 0 0 0 1px rgba(196,181,253,.22), 0 24px 60px -18px rgba(0,0,0,.8), 0 0 50px -12px var(--glow);
+  }
+  .guide-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .guide-steps { list-style: none; counter-reset: g; padding: 0; margin: 0; width: 100%; max-width: 26rem; text-align: left; }
+  .guide-steps li { counter-increment: g; }
+  .guide-steps button {
+    all: unset; box-sizing: border-box; width: 100%; cursor: pointer;
+    display: flex; gap: 12px; align-items: baseline; padding: 10px 12px; border-radius: 10px;
+    color: var(--muted); font-size: 15px; line-height: 1.45; transition: background-color .2s, color .2s;
+  }
+  .guide-steps button::before { content: counter(g); flex: none; width: 12px; font: 600 13px/1 Manrope, system-ui, sans-serif; color: var(--faint); transition: color .2s; }
+  .guide-steps button:hover { background: rgba(255,255,255,.03); }
+  .guide-steps button:focus-visible { outline: 2px solid var(--violet-hi); outline-offset: 0; }
+  .guide-steps li.on button { background: rgba(109,74,255,.14); color: var(--soft); box-shadow: inset 0 0 0 1px rgba(154,132,255,.3); }
+  .guide-steps li.on button::before { color: var(--violet-hi); }
+  .guide-steps strong { color: var(--soft); font-weight: 600; }
+  .tag { margin-left: 6px; padding: 1px 7px; border-radius: 6px; font-size: 12px; color: var(--violet-hi); background: rgba(109,74,255,.14); white-space: nowrap; }
+  @media (min-width: 820px) {
+    .guide-body { grid-template-columns: 270px 26rem; justify-content: center; align-items: center; gap: 56px; }
+  }
+
+  footer { padding: 48px 0 32px; color: var(--faint); font-size: 13px; text-align: center; }
+
+  /* Desktop: text and steps left, phone right, all on one screen. */
+  @media (min-width: 820px) {
+    .nav { justify-content: flex-start; padding-top: 22px; }
+    .hero {
+      grid-template-columns: 1fr 290px; column-gap: 72px;
+      grid-template-areas: "h1 phone" "lede phone" "cta phone" "steps phone" "off phone";
+      grid-template-rows: auto auto auto auto 1fr;
+      align-items: start; padding-top: 48px;
+    }
+    h1, .lede, .cta, .off { text-align: left; }
+    h1 { font-size: 3.5rem; margin-top: 24px; }
+    .lede { font-size: 17px; }
+    .cta { margin-top: 26px; }
+    .steps { margin-top: 36px; max-width: 26rem; align-self: start; }
+    .steps li { font-size: 15.5px; padding: 13px 0; }
+    .off { margin-top: 16px; }
+    .stage { margin-top: 0; }
+    .stage::before {
+      content: ""; position: absolute; left: 50%; top: 40%; width: 360%; height: 3px; transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, rgba(154,132,255,.8) 40%, #fff 50%, rgba(154,132,255,.8) 60%, transparent);
+      filter: blur(1.5px);
+    }
+    .phone { border-radius: 42px; border-width: 8px; }
+    .qr { display: none; }
+  }
+  @media (hover: hover) and (pointer: fine) and (min-width: 820px) {
+    .qr {
+      display: flex; gap: 14px; align-items: center;
+      margin-top: 18px; color: var(--faint); font-size: 13.5px; max-width: 20rem;
+    }
+    .qr-code { width: 72px; height: 72px; flex: none; padding: 5px; background: #fff; border-radius: 8px; }
+    .qr-code svg { display: block; width: 100%; height: 100%; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#top">
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8B6CFF"/><stop offset="1" stop-color="#5B39F0"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#g)"/><path d="M20 7a9 9 0 1 0 5 15.5A8 8 0 0 1 20 7z" fill="#fff"/></svg>
+      Back to Focus
+    </a>
+  </nav>
+
+  <main id="top" class="hero">
+    <h1>Open X or Instagram during Focus. Get sent back.</h1>
+    <p class="lede">Free iPhone Shortcut. Only acts during Focus, never during Sleep.</p>
+
+    <div class="cta">
+      <a class="btn install" href="https://www.icloud.com/shortcuts/6c6ab036b7db42438c0f8428354e83bb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        <span>Get Back to Focus</span>
+      </a>
+      <p class="fine">For iOS 27. No account. <a href="#install">Watch the install</a></p>
+      <div class="qr">
+        <div class="qr-code" id="qr" role="img" aria-label="QR code for this page"></div>
+        <p>On a computer? Scan to open this on your iPhone.</p>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="phone">
+        <video muted playsinline loop autoplay preload="auto" poster="assets/demo-poster.jpg"
+          aria-label="Screen recording: opening Instagram and then X during Focus, each bounces straight back.">
+          <source src="assets/demo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <ol class="steps" aria-label="Setup">
+            <li><span>Tap <strong>Get Back to Focus</strong>, then <strong>Add Shortcut</strong>.</span></li>
+      <li><span>Open it, tap <strong>Edit</strong>, then the arrow next to <strong>Opened</strong>. Switch on <strong>Automation</strong>.</span></li>
+      <li><span>Optional: tap <strong>X</strong> or <strong>Instagram</strong> in the shortcut to pick your own apps.</span></li>
+      <li><span>Turn on any Focus except Sleep and open one of them.</span></li>
+    </ol>
+    <p class="off">To pause it, switch <strong>Automation</strong> off the same way. To remove it, delete the shortcut. iPhone not in English? Change <strong>Sleep</strong> in the shortcut to your language’s name for it.</p>
+  </main>
+
+
+  <section id="install" class="guide" aria-labelledby="install-h">
+    <h2 id="install-h">How to install</h2>
+    <p>About 30 seconds. Tap a step to jump to it.</p>
+    <div class="guide-body">
+      <div class="guide-video">
+        <video id="guide" muted playsinline loop autoplay preload="metadata" poster="assets/install-poster.jpg"
+          aria-label="Screen recording of installing Back to Focus, step by step.">
+          <source src="assets/install.mp4" type="video/mp4">
+        </video>
+      </div>
+      <ol class="guide-steps">
+        <li data-t="0"><button type="button"><span>Tap <strong>Get Back to Focus</strong> on this page.</span></button></li>
+        <li data-t="3"><button type="button"><span>Tap <strong>Add Shortcut</strong>.</span></button></li>
+        <li data-t="6"><button type="button"><span>Open <strong>Back to focus</strong> in Shortcuts.</span></button></li>
+        <li data-t="8.8"><button type="button"><span>Tap <strong>Edit</strong>.</span></button></li>
+        <li data-t="11.4"><button type="button"><span>Tap the arrow next to <strong>Opened</strong>.</span></button></li>
+        <li data-t="14.8"><button type="button"><span>Switch on <strong>Automation</strong>.</span></button></li>
+        <li data-t="17.8"><button type="button"><span>Tap <strong>+</strong> next to Instagram to add any other app.<span class="tag">Optional</span></span></button></li>
+        <li data-t="23.4"><button type="button"><span>Done. Turn on a Focus and try it.</span></button></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made by <a href="https://x.com/zig_andreas">@zig_andreas</a>. Not affiliated with Apple.</p>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+  // Placeholder install links stay disabled until real iCloud links are pasted in.
+  document.querySelectorAll('.install').forEach(a => {
+    if (a.getAttribute('href').startsWith('ICLOUD_LINK')) {
+      a.setAttribute('aria-disabled', 'true');
+      a.removeAttribute('href');
+      a.querySelector('span').textContent = 'Install link coming soon';
+    }
+  });
+
+  // Keep the demo playing while it's on screen (some browsers pause muted autoplay).
+  const demo = document.querySelector('.phone video');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) demo.play().catch(() => {}); else demo.pause(); }, { threshold: .25 }).observe(demo);
+  }
+
+
+  // Install guide: highlight the step that's playing; tap a step to jump there.
+  const guide = document.getElementById('guide');
+  const items = [...document.querySelectorAll('.guide-steps li')];
+  const starts = items.map(li => parseFloat(li.dataset.t));
+  const mark = () => {
+    let i = 0; starts.forEach((t, k) => { if (guide.currentTime >= t) i = k; });
+    items.forEach((li, k) => li.classList.toggle('on', k === i));
+  };
+  guide.addEventListener('timeupdate', mark);
+  items.forEach((li, k) => li.querySelector('button').addEventListener('click', () => {
+    guide.currentTime = starts[k] + 0.05; guide.play().catch(() => {}); mark();
+  }));
+  mark();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([e]) => { if (e.isIntersecting) guide.play().catch(() => {}); else guide.pause(); }, { threshold: .25 }).observe(guide);
+  }
+
+  // QR for the current page, shown to desktop visitors.
+  try {
+    const qr = qrcode(0, 'M');
+    qr.addData(location.origin + location.pathname);
+    qr.make();
+    document.getElementById('qr').innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+  } catch (e) {
+    document.querySelector('.qr').remove();
+  }
+</script>
+</body>
+</html>
