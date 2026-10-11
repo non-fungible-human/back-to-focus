@@ -128,7 +128,7 @@
   .guide > p { color: var(--muted); margin-top: 8px; }
   .guide-body { display: grid; gap: 28px; justify-items: center; margin-top: 28px; }
   .guide-video {
-    width: min(70vw, 270px); aspect-ratio: 9 / 16; border-radius: 22px; overflow: hidden; background: #000;
+    width: min(88vw, 380px); aspect-ratio: 1 / 2; border-radius: 26px; overflow: hidden; background: #000;
     box-shadow: 0 0 0 1px rgba(196,181,253,.22), 0 24px 60px -18px rgba(0,0,0,.8), 0 0 50px -12px var(--glow);
   }
   .guide-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -147,7 +147,7 @@
   .guide-steps strong { color: var(--soft); font-weight: 600; }
   .tag { margin-left: 6px; padding: 1px 7px; border-radius: 6px; font-size: 12px; color: var(--violet-hi); background: rgba(109,74,255,.14); white-space: nowrap; }
   @media (min-width: 820px) {
-    .guide-body { grid-template-columns: 270px 26rem; justify-content: center; align-items: center; gap: 56px; }
+    .guide-body { grid-template-columns: 380px 24rem; justify-content: center; align-items: center; gap: 56px; }
   }
 
   footer { padding: 48px 0 32px; color: var(--faint); font-size: 13px; text-align: center; }
@@ -159,10 +159,10 @@
       grid-template-columns: 1fr 290px; column-gap: 72px;
       grid-template-areas: "h1 phone" "lede phone" "cta phone" "steps phone" "off phone";
       grid-template-rows: auto auto auto auto 1fr;
-      align-items: start; padding-top: 48px;
+      align-items: start; padding-top: 32px;
     }
     h1, .lede, .cta, .off { text-align: left; }
-    h1 { font-size: 3.5rem; margin-top: 24px; }
+    h1 { font-size: 3.5rem; margin-top: 12px; }
     .lede { font-size: 17px; }
     .cta { margin-top: 26px; }
     .steps { margin-top: 36px; max-width: 26rem; align-self: start; }
@@ -178,11 +178,14 @@
     .qr { display: none; }
   }
   @media (hover: hover) and (pointer: fine) and (min-width: 820px) {
+    .cta { display: flex; align-items: center; gap: 32px; }
+    .cta-main { flex: none; }
+    .cta-main .fine { white-space: nowrap; }
     .qr {
       display: flex; gap: 14px; align-items: center;
-      margin-top: 18px; color: var(--faint); font-size: 13.5px; max-width: 20rem;
+      color: var(--muted); font-size: 14.5px; max-width: 18rem;
     }
-    .qr-code { width: 72px; height: 72px; flex: none; padding: 5px; background: #fff; border-radius: 8px; }
+    .qr-code { width: 132px; height: 132px; flex: none; padding: 9px; background: #fff; border-radius: 12px; }
     .qr-code svg { display: block; width: 100%; height: 100%; }
   }
 
@@ -204,11 +207,13 @@
     <p class="lede">Free iPhone Shortcut. Only acts during Focus, never during Sleep.</p>
 
     <div class="cta">
-      <a class="btn install" href="https://www.icloud.com/shortcuts/6c6ab036b7db42438c0f8428354e83bb">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
-        <span>Get Back to Focus</span>
-      </a>
-      <p class="fine">For iOS 27. No account. <a href="#install">Watch the install</a></p>
+      <div class="cta-main">
+        <a class="btn install" href="https://www.icloud.com/shortcuts/6c6ab036b7db42438c0f8428354e83bb">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+          <span>Get Back to Focus</span>
+        </a>
+        <p class="fine">For iOS 27. No account. <a href="#install">Watch the install</a></p>
+      </div>
       <div class="qr">
         <div class="qr-code" id="qr" role="img" aria-label="QR code for this page"></div>
         <p>On a computer? Scan to open this on your iPhone.</p>
