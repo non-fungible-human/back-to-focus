@@ -34,7 +34,8 @@
   }
 
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  html { -webkit-text-size-adjust: 100%; overflow-x: clip; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0;
     background:
@@ -128,7 +129,7 @@
   .guide > p { color: var(--muted); margin-top: 8px; }
   .guide-body { display: grid; gap: 28px; justify-items: center; margin-top: 28px; }
   .guide-video {
-    width: min(88vw, 380px); aspect-ratio: 1 / 2; border-radius: 26px; overflow: hidden; background: #000;
+    width: min(88vw, 380px, calc((100svh - 32px) / 2)); aspect-ratio: 1 / 2; border-radius: 26px; scroll-margin-top: 16px; overflow: hidden; background: #000;
     box-shadow: 0 0 0 1px rgba(196,181,253,.22), 0 24px 60px -18px rgba(0,0,0,.8), 0 0 50px -12px var(--glow);
   }
   .guide-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -212,7 +213,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
           <span>Get Back to Focus</span>
         </a>
-        <p class="fine">For iOS 27. No account. <a href="#install">Watch the install</a></p>
+        <p class="fine">For iOS 27. No account. <a href="#watch">Watch the install</a></p>
       </div>
       <div class="qr">
         <div class="qr-code" id="qr" role="img" aria-label="QR code for this page"></div>
@@ -243,7 +244,7 @@
     <h2 id="install-h">How to install</h2>
     <p>About 30 seconds. Tap a step to jump to it.</p>
     <div class="guide-body">
-      <div class="guide-video">
+      <div class="guide-video" id="watch">
         <video id="guide" muted playsinline loop autoplay preload="metadata" poster="assets/install-poster.jpg"
           aria-label="Screen recording of installing Back to Focus, step by step.">
           <source src="assets/install.mp4" type="video/mp4">
