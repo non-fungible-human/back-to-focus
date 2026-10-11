@@ -35,4 +35,4 @@ To pause it, switch **Automation** off the same way. To remove it, delete the sh
 
 `site/` is a single static page, deployed to GitHub Pages on every push to `main`. No accounts, no analytics.
 
-Not affiliated with or endorsed by Apple.
+Open source under the [MIT License](LICENSE). Not affiliated with or endorsed by Apple.
