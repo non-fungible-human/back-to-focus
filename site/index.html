@@ -56,19 +56,16 @@
   .brand { font: 600 15px/1 Manrope, system-ui, sans-serif; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 10px; }
   .mark { width: 26px; height: 26px; }
 
-  /* One screen: phones stack text, then video + steps side by side. */
+  /* Phones: headline, button, then the demo. */
   .hero {
     display: grid; column-gap: 18px;
-    grid-template-columns: 132px 1fr;
-    grid-template-areas: "h1 h1" "lede lede" "cta cta" "phone steps" "off off";
+    grid-template-areas: "h1" "lede" "cta" "phone";
     padding-top: 28px;
   }
   .hero h1 { grid-area: h1; }
   .lede { grid-area: lede; }
   .cta { grid-area: cta; }
   .stage { grid-area: phone; }
-  .steps { grid-area: steps; }
-  .off { grid-area: off; }
 
   h1 {
     font: 500 clamp(2rem, 8.6vw, 3.5rem)/1.08 Manrope, system-ui, sans-serif; letter-spacing: -.02em;
@@ -96,7 +93,7 @@
   .qr { display: none; }
 
   /* Demo phone */
-  .stage { position: relative; margin-top: 28px; align-self: start; }
+  .stage { position: relative; margin-top: 32px; justify-self: center; width: min(60vw, 250px); }
   .stage::after {
     content: ""; position: absolute; left: 50%; top: 45%; width: 260%; height: 70%; transform: translate(-50%, -50%);
     background: radial-gradient(closest-side, rgba(124,92,255,.45), transparent);
@@ -110,14 +107,6 @@
   }
   .phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-  /* Setup */
-  .steps { list-style: none; counter-reset: s; padding: 0; margin-top: 28px; align-self: center; }
-  .steps li { counter-increment: s; display: flex; gap: 10px; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 14.5px; line-height: 1.45; }
-  .steps li:last-child { border-bottom: 1px solid var(--line); }
-  .steps li::before { content: counter(s); flex: none; font: 600 13px/1 Manrope, system-ui, sans-serif; color: var(--violet-hi); width: 10px; }
-  .steps strong { color: var(--soft); font-weight: 600; }
-  .off { color: var(--faint); font-size: 13px; text-align: center; margin-top: 20px; }
-  .off strong { color: var(--muted); font-weight: 600; }
 
 
   /* Install guide: video with steps that follow along */
@@ -146,6 +135,8 @@
   .guide-steps li.on button { background: rgba(109,74,255,.14); color: var(--soft); box-shadow: inset 0 0 0 1px rgba(154,132,255,.3); }
   .guide-steps li.on button::before { color: var(--violet-hi); }
   .guide-steps strong { color: var(--soft); font-weight: 600; }
+  .guide-note { color: var(--faint); font-size: 13.5px; max-width: 30rem; margin: 32px auto 0; }
+  .guide-note strong { color: var(--muted); font-weight: 600; }
   .tag { margin-left: 6px; padding: 1px 7px; border-radius: 6px; font-size: 12px; color: var(--violet-hi); background: rgba(109,74,255,.14); white-space: nowrap; }
   @media (min-width: 820px) {
     .guide-body { grid-template-columns: 380px 24rem; justify-content: center; align-items: center; gap: 56px; }
@@ -158,18 +149,15 @@
     .nav { justify-content: flex-start; padding-top: 22px; }
     .hero {
       grid-template-columns: 1fr 290px; column-gap: 72px;
-      grid-template-areas: "h1 phone" "lede phone" "cta phone" "steps phone" "off phone";
-      grid-template-rows: auto auto auto auto 1fr;
-      align-items: start; padding-top: 32px;
+      grid-template-areas: ". phone" "h1 phone" "lede phone" "cta phone" ". phone";
+      grid-template-rows: 1fr auto auto auto 1fr;
+      padding-top: 32px;
     }
-    h1, .lede, .cta, .off { text-align: left; }
+    h1, .lede, .cta { text-align: left; }
     h1 { font-size: 3.5rem; margin-top: 12px; }
     .lede { font-size: 17px; }
     .cta { margin-top: 26px; }
-    .steps { margin-top: 36px; max-width: 26rem; align-self: start; }
-    .steps li { font-size: 15.5px; padding: 13px 0; }
-    .off { margin-top: 16px; }
-    .stage { margin-top: 0; }
+    .stage { margin-top: 0; width: auto; }
     .stage::before {
       content: ""; position: absolute; left: 50%; top: 40%; width: 360%; height: 3px; transform: translateX(-50%);
       background: linear-gradient(90deg, transparent, rgba(154,132,255,.8) 40%, #fff 50%, rgba(154,132,255,.8) 60%, transparent);
@@ -230,13 +218,6 @@
       </div>
     </div>
 
-    <ol class="steps" aria-label="Setup">
-            <li><span>Tap <strong>Get Back to Focus</strong>, then <strong>Add Shortcut</strong>.</span></li>
-      <li><span>Open it, tap <strong>Edit</strong>, then the arrow next to <strong>Opened</strong>. Switch on <strong>Automation</strong>.</span></li>
-      <li><span>Optional: tap <strong>X</strong> or <strong>Instagram</strong> in the shortcut to pick your own apps.</span></li>
-      <li><span>Turn on any Focus except Sleep and open one of them.</span></li>
-    </ol>
-    <p class="off">To pause it, switch <strong>Automation</strong> off the same way. To remove it, delete the shortcut. iPhone not in English? Change <strong>Sleep</strong> in the shortcut to your language’s name for it.</p>
   </main>
 
 
@@ -261,6 +242,7 @@
         <li data-t="23.4"><button type="button"><span>Done. Turn on a Focus and try it.</span></button></li>
       </ol>
     </div>
+    <p class="guide-note">To pause it, switch <strong>Automation</strong> off again (steps 3 to 6). To remove it, delete the shortcut. iPhone not in English? Change <strong>Sleep</strong> in the shortcut to your language’s name for it.</p>
   </section>
 
   <footer>
